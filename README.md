@@ -11,6 +11,7 @@ A documentação se encontra na raiz do projeto, nela esta descrita o funcioname
 <img src="https://uploaddeimagens.com.br/images/003/625/529/full/imagem_2022-01-11_235948.png?1641956390" width = 800/>
 
 - GUIA DE USO
+
 Clone o repositorio para algum local usando:
 ```git
 git clone git@github.com:utrmliha/neoapp.git
@@ -33,5 +34,7 @@ Na pasta raiz da aplicação execulte o comando, substituindo ```igor/neoapp``` 
 docker build -t igor/neoapp .
 ```
 Agora use: 
-```docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE='prod' -e DATABASE_URL='jdbc:h2:mem:neoappdb' -e DATABASE_USERNAME='sa' -e DATABASE_PASSWORD='' -e JWT_EXPIRATION='86400000' -e JWT_SECRET='b21fd5bc-f3f3-4f9e-99d6-e46df3e5e340' igor/neoapp```
+```docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE='prod' -e DATABASE_URL='jdbc:h2:mem:neoappdb' -e DATABASE_USERNAME='sa' -e DATABASE_PASSWORD='' -e JWT_EXPIRATION='86400000' -e JWT_SECRET='b21fd5bc-f3f3-4f9e-99d6-e46df3e5e340' igor/neoapp``` <br />
 E acesse http://localhost:8080/clientes
+<br /><br />
+OBS: a aplicação usa o H2(Banco em memória) para persistência, caso queira usar o mysql tera que modificar o ```pom.xml``` adicionando o driver do mysql e os dados dos parametros acima
