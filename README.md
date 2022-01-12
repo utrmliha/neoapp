@@ -37,5 +37,5 @@ Agora use:
 ```docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE='prod' -e DATABASE_URL='jdbc:h2:mem:neoappdb' -e DATABASE_USERNAME='sa' -e DATABASE_PASSWORD='' -e JWT_EXPIRATION='86400000' -e JWT_SECRET='b21fd5bc-f3f3-4f9e-99d6-e46df3e5e340' igor/neoapp``` <br />
 E acesse http://localhost:8080/clientes
 <br /><br />
-OBS: a aplicação usa o H2(Banco em memória) para persistência, caso queira usar o mysql tera que modificar o ```pom.xml``` adicionando o driver do mysql e os dados dos parametros acima
+OBS: a aplicação usa o H2(Banco em memória) para persistência, caso queira usar o mysql tera que modificar o ```pom.xml``` adicionando o driver do mysql e os dados dos parametros acima<br /><br />
 <i>Caso algum desses passos acima precise de mudança, mande uma msg no meu linkedin, ficarei agradecido</i>
