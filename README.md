@@ -38,3 +38,4 @@ Agora use:
 E acesse http://localhost:8080/clientes
 <br /><br />
 OBS: a aplicação usa o H2(Banco em memória) para persistência, caso queira usar o mysql tera que modificar o ```pom.xml``` adicionando o driver do mysql e os dados dos parametros acima
+<i>Caso algum desses passos acima precise de mudança, mande uma msg no meu linkedin, ficarei agradecido</i>
