@@ -24,5 +24,5 @@ Ou só
 mvn package
 ```
 Os Goals ```clean package``` tambem podem ser executados usando o processo de build da sua propia IDE.<br />
-Caso use Intellij, veja esse processo no tópico <b>[Run a Maven goal or a set of goals via Run configuration](https://www.jetbrains.com/help/idea/work-with-maven-goals.html#trigger_goal)<b/> <br />
-Caso use Eclipse,
+Caso use Intellij, veja esse processo no tópico <b>[Run a Maven goal or a set of goals via Run configuration](https://www.jetbrains.com/help/idea/work-with-maven-goals.html#trigger_goal)</b> <br />
+Caso use Eclipse, <b>[Clique aki](https://kkjavatutorials.com/how-to-create-a-runnable-jar-file-with-maven/)</b>
