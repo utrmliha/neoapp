@@ -1,0 +1,6 @@
+INSERT INTO USUARIO(login, password) VALUES('admin', '$2a$10$VKE3POPavwxHFwL9PcgZqe9D9D6DDJkH7ONOMT0CpGMFyByAi3j5q');
+
+INSERT INTO PERFIL(id, nome) VALUES(1, 'ROLE_ADMIN');
+
+INSERT INTO USUARIO_PERFIS(usuario_id, perfis_id) VALUES(1, 1);
+

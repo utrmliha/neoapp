@@ -1,0 +1,411 @@
+openapi: 3.0.1
+info:
+  title: 'NeoApp Api'
+  description: 'API para gerenciamento de clientes'
+  version: 1.0.0
+externalDocs:
+  description: 'Criado por Igor Vinícius'
+  url: 'https://www.linkedin.com/in/igorvj/'
+servers:
+  - url: 'https://neoapplication.herokuapp.com'
+    description: 'Api de testes'
+
+tags:
+  - name: Segurança
+    description: |
+      Para fins de testes um usuario admin(Default) já esta disponível no banco.
+
+      Ao usar o endpoint de autenticação, o usuario e senha são "admin" como descrito no exemplo do endpoint "/auth".
+
+      Assim que a autenticação ocorrer executando o endpoint "/auth", seu token deve ser passado no parametro "Authorization" para cada endpoint de Uso Geral
+
+      OBS:
+
+  - name: Uso Geral
+
+paths:
+  /auth:
+    post:
+      tags: [Segurança]
+      summary: 'Realizar autenticações.'
+      description: 'Realiza a autenticação do usuario da API e retorna o token para futuras autorizações.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthRequest'
+      responses:
+        200:
+          description: 'Sucesso.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AuthResponse'
+        400:
+          description: 'Não autorizado.'
+
+  /clientes:
+    post:
+      security:
+        - auth: []
+      tags: [Uso Geral]
+      summary: 'Inserir novos Clientes.'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteRequest'
+      responses:
+        201:
+          description: 'Criado.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        400:
+          description: 'Existem erros nos dados informados pelo cliente.'
+        401:
+          description: 'Não autenticado.'
+
+    get:
+      security:
+        - auth: []
+      parameters:
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/Size'
+        - $ref: '#/components/parameters/Sort'
+        - $ref: '#/components/parameters/ClienteNome'
+        - $ref: '#/components/parameters/ClienteCelular'
+        - $ref: '#/components/parameters/ClienteEmail'
+        - $ref: '#/components/parameters/ClienteCpf'
+        - $ref: '#/components/parameters/ClienteDataDeNascimento'
+
+      tags: [Uso Geral]
+      summary: 'Listar Clientes.'
+      responses:
+        200:
+          description: 'Sucesso.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponsePagination'
+
+        401:
+          description: 'Não autenticado.'
+        404:
+          description: 'Não encontrado.'
+
+  /clientes/{id}:
+    parameters:
+      - $ref: '#/components/parameters/Id'
+    put:
+      security:
+        - auth: []
+      tags: [Uso Geral]
+      summary: 'Atualizar Clientes.'
+      description: 'Atualiza dados de clientes (pode ser enviado no corpo da requisição apenas os dados a serem atualizados)'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ClienteRequest'
+      responses:
+        200:
+          description: 'Sucesso.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        400:
+          description: 'Existem erros nos dados informados pelo cliente.'
+        401:
+          description: 'Não autenticado.'
+        404:
+          description: 'Não encontrado.'
+
+    get:
+      security:
+        - auth: []
+      tags: [Uso Geral]
+      summary: 'Buscar Clientes.'
+      responses:
+        200:
+          description: 'Sucesso.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ClienteResponse'
+        400:
+          description: 'Existem erros nos parametros informados pelo cliente.'
+        401:
+          description: 'Não autenticado.'
+        404:
+          description: 'Não encontrado.'
+
+    delete:
+      security:
+        - auth: []
+      tags: [Uso Geral]
+      summary: 'Deletar Clientes.'
+      responses:
+        204:
+          description: 'Sucesso (No content)'
+        401:
+          description: 'Não autenticado.'
+        404:
+          description: 'Não encontrado.'
+
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      schema:
+        type: integer
+      required: true
+
+    Page:
+      name: page
+      in: query
+      schema:
+        type: integer
+        example: 0
+      required: false
+
+    Size:
+      name: size
+      in: query
+      schema:
+        type: integer
+        example: 10
+      required: false
+
+    Sort:
+      name: sort
+      in: query
+      schema:
+        type: string
+        enum: [ASC, DESC]
+        example: ASC
+      required: false
+
+    ClienteNome:
+      name: nome
+      in: query
+      schema:
+        type: string
+        example: "José"
+      required: false
+
+    ClienteCelular:
+      name: celular
+      in: query
+      schema:
+        type: string
+        example: "(21) 9 3333-4444"
+      required: false
+
+    ClienteEmail:
+      name: email
+      in: query
+      schema:
+        type: string
+        example: "emailaleatorio@gmail.com"
+      required: false
+
+    ClienteCpf:
+      name: cpf
+      in: query
+      schema:
+        type: string
+        example: "472.132.830-30"
+      required: false
+
+    ClienteDataDeNascimento:
+      name: dataDeNascimento
+      in: query
+      schema:
+        type: string
+        example: "23/02/1995"
+      required: false
+
+  schemas:
+    ClienteRequest:
+      type: object
+      properties:
+        nome:
+          type: string
+          example: 'Mateus da silva'
+        celular:
+          type: string
+          example: '(22) 9 8888-7777'
+        email:
+          type: string
+          example: 'emaildetest@gmail.com'
+        cpf:
+          type: string
+          example: '472.132.830-30'
+        dataDeNascimento:
+          type: string
+          format: data
+          example: '23/02/1995'
+
+    ClienteResponse:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nome:
+          type: string
+          example: 'Mateus da silva'
+        celular:
+          type: string
+          example: '(22) 9 8888-7777'
+        email:
+          type: string
+          example: 'emaildetest@gmail.com'
+        cpf:
+          type: string
+          example: '472.132.830-30'
+        dataDeNascimento:
+          type: string
+          format: data
+          example: '23/02/1995'
+        idade:
+          type: integer
+          example: 26
+        dataDeCriacao:
+          type: string
+          format: date-time
+        dataDeAtualizacao:
+          type: string
+          format: date-time
+
+    ClienteResponsePagination:
+      type: array
+      items:
+        type: object
+        properties:
+          content:
+            type: array
+            items:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  example: 1
+                nome:
+                  type: string
+                  example: 'Mateus da silva'
+                celular:
+                  type: string
+                  example: '(22) 9 8888-7777'
+                email:
+                  type: string
+                  example: 'emaildetest@gmail.com'
+                cpf:
+                  type: string
+                  example: '472.132.830-30'
+                dataDeNascimento:
+                  type: string
+                  format: data
+                  example: '23/02/1995'
+                idade:
+                  type: integer
+                  example: 26
+                dataDeCriacao:
+                  type: string
+                  format: date-time
+                dataDeAtualizacao:
+                  type: string
+                  format: date-time
+          pageable:
+            type: object
+            properties:
+              sort:
+                type: object
+                properties:
+                  sorted:
+                    type: boolean
+                    example: true
+                  unsorted:
+                    type: boolean
+                    example: false
+                  empty:
+                    type: boolean
+                    example: false
+              pageSize:
+                type: integer
+                example: 10
+              pageNumber:
+                type: integer
+                example: 0
+              offset:
+                type: integer
+                example: 0
+              unpaged:
+                type: boolean
+                example: false
+              paged:
+                type: boolean
+                example: true
+          last:
+            type: boolean
+          totalPages:
+            type: integer
+            example: 1
+          totalElements:
+            type: integer
+            example:
+          sort:
+            type: object
+            properties:
+              empty:
+                type: boolean
+                example: true
+              sorted:
+                type: boolean
+                example: true
+              unsorted:
+                type: boolean
+                example: false
+          first:
+            type: boolean
+          numberOfElements:
+            type: integer
+            example: 1
+          size:
+            type: integer
+            example: 10
+          number:
+            type: integer
+            example: 0
+          empty:
+            type: boolean
+            example: false
+
+    AuthRequest:
+      type: object
+      properties:
+        login:
+          type: string
+          example: 'admin'
+        password:
+          type: string
+          example: 'admin'
+
+    AuthResponse:
+      type: object
+      properties:
+        tipo:
+          type: string
+          example: Bearer
+        token:
+          type: string
+          example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImF5bGFuQGJvc2Nhcmluby5jb20iLCJwYXNzd29yZCI6InlhMGdzcWh5NHd6dnV2YjQifQ.yN_8-Mge9mFgsnYHnPEh_ZzNP7YKvSbQ3Alug9HMCsM'
+
+  securitySchemes:
+    auth:
+      type: http
+      scheme: bearer
