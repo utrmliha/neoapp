@@ -16,7 +16,7 @@ Clone o repositorio para algum local usando:
 ```git
 git clone git@github.com:utrmliha/neoapp.git
 ```
-Para subir a aplicação em docker voce precisa criar o .jar usando o maven caso instalado, na raiz da aplicação use :
+Para subir a aplicação em docker voce precisa criar o .jar da aplicação usando o maven caso instalado, na raiz da aplicação use :
 ```
 mvn clean package
 ```
