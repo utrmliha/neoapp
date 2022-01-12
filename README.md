@@ -26,3 +26,12 @@ mvn package
 Os Goals ```clean package``` tambem podem ser executados usando o processo de build da sua propia IDE.<br />
 Caso use Intellij, veja esse processo no tópico <b>[Run a Maven goal or a set of goals via Run configuration](https://www.jetbrains.com/help/idea/work-with-maven-goals.html#trigger_goal)</b> <br />
 Caso use Eclipse, <b>[Clique aki](https://kkjavatutorials.com/how-to-create-a-runnable-jar-file-with-maven/)</b>
+
+Gerando o ```neoapp.jar``` na pasta ```/target``` ja está pronto para criar a imagem da aplicação.<br />
+Na pasta raiz da aplicação execulte o comando, substituindo ```igor/neoapp``` pelo nome do container de sua preferência:
+```
+docker build -t igor/neoapp .
+```
+Agora use: 
+```docker run -p 8080:8080 -e SPRING_PROFILES_ACTIVE='prod' -e DATABASE_URL='jdbc:h2:mem:neoappdb' -e DATABASE_USERNAME='sa' -e DATABASE_PASSWORD='' -e JWT_EXPIRATION='86400000' -e JWT_SECRET='b21fd5bc-f3f3-4f9e-99d6-e46df3e5e340' igor/neoapp```
+E acesse http://localhost:8080/clientes
