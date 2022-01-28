@@ -1,7 +1,6 @@
 # Api RestFul de gerenciamento de clientes
  - ACESSO A API
 
-<p align=center>Link da aplicação: https://neoapplication.herokuapp.com <br /></p>
 OBS: Ela fica adomercida após 30min sem requisições, então a primeira requisição demorará um pouco até q o servidor inicie o Dyno<br /><br />
 
  - DOCUMENTAÇÃO
