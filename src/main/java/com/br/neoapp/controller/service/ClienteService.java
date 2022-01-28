@@ -36,10 +36,10 @@ public class ClienteService{
     public Page<ClienteDto> listar(ClienteParamsForm clienteParamsForm, Pageable pageable) {
         return clienteRepository.findAll(Specification.where(
             ClienteSpecification.nome(clienteParamsForm.getNome())
-                .or(ClienteSpecification.celular(clienteParamsForm.getCelular()))
-                .or(ClienteSpecification.email(clienteParamsForm.getEmail()))
-                .or(ClienteSpecification.cpf(clienteParamsForm.getCpf()))
-                .or(ClienteSpecification.dataDeNascimento(clienteParamsForm.getDataDeNascimento()))
+                .and(ClienteSpecification.celular(clienteParamsForm.getCelular()))
+                .and(ClienteSpecification.email(clienteParamsForm.getEmail()))
+                .and(ClienteSpecification.cpf(clienteParamsForm.getCpf()))
+                .and(ClienteSpecification.dataDeNascimento(clienteParamsForm.getDataDeNascimento()))
         ), pageable).map(ClienteDto::new);
     }
 
